@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+
+    <script src="./components/coin.js"></script>
+    <script src="./components/fish.js"></script>
+    <script src="./components/game.js"></script>
+    <script src="./components/rotation.js"></script>
+  </head>
+
+  <body>
+    <a-scene background="color:#026F90">
+      <a-entity id="look" look-controls camera position="0 2 20"></a-entity>
+
+      <a-assets timeout="1000">     
+        <a-asset-item id="obj-back" src="./assets/terrain/tinker.obj"></a-asset-item>
+        <a-asset-item id="mtl-back" src="./assets/terrain/obj.mtl"></a-asset-item>
+        <a-asset-item id="gltf-back" src="./assets/terrain/project153.glb"></a-asset-item>
+
+        <a-asset-item id="obj-diver" src="./assets/diver/tinker.obj"></a-asset-item>
+        <a-asset-item id="mtl-diver" src="./assets/diver/obj.mtl"></a-asset-item>
+        <a-asset-item id="gltf-diver" src="./assets/diver/project153.2.glb"></a-asset-item>
+      </a-assets>
+      
+      <a-entity
+        id="terrain"
+        obj-model="obj: #obj-back; mtl: #mtl-back;"
+        position="0 -350 0"
+        scale="10 10 10"
+        rotation="-90 0 0"
+        animation="property: position; to: 0 0 1000;easing:linear; loop: true; dur: 150000"
+        terrain-rotation-reader
+        target-coin
+        fish
+        >
+      </a-entity>
+
+      <a-entity
+        id="diver_model"
+        obj-model="obj: #obj-diver; mtl: #mtl-diver;"
+        position="0 0 15"
+        scale="0.05 0.05 0.05"
+        rotation="-90 180 0"
+        diver-rotation-reader        
+        dynamic-body="mass: 0"
+        game-play
+      >
+      </a-entity>
+
+      <a-entity id="header" position="1 -4 0">
+        <a-entity
+          position="-28.5 21.5 0"
+          text="font: exo2bold; align: center; width: 40; color: black; value: VIRTUAL FLIGHT"
+        ></a-entity>
+
+        <a-entity position="-23.5 19.3 0">
+          <a-entity
+            position="-1.5 0.07 0"
+            text="font: aileronsemibold; width: 12; color: black; value: TIME REMAINING"
+          ></a-entity>
+          <a-entity
+            id="timer"
+            position="-9.8 0.3 0"
+            text="font: exo2bold; align: center; width: 30; color: black; value: 00:00"
+          ></a-entity>
+        </a-entity>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
